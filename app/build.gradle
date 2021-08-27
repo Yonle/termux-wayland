@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.termux.x11"
         minSdkVersion 24
@@ -52,4 +52,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'androidx.annotation:annotation:1.2.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
+    implementation 'com.github.agnostic-apollo:termux-app:extra-keys-conversion-to-agnosticism-SNAPSHOT'
+    implementation "com.google.guava:guava:24.1-jre"
 }

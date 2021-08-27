@@ -16,27 +16,22 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import android.widget.FrameLayout;
+import com.termux.shared.terminal.io.extrakeys.ExtraKeysView;
+import com.termux.x11.TermuxAppSharedProperties;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static int[] keys = {
-            KeyEvent.KEYCODE_ESCAPE,
-            KeyEvent.KEYCODE_TAB,
-            KeyEvent.KEYCODE_CTRL_LEFT,
-            KeyEvent.KEYCODE_ALT_LEFT,
-            KeyEvent.KEYCODE_DPAD_UP,
-            KeyEvent.KEYCODE_DPAD_DOWN,
-            KeyEvent.KEYCODE_DPAD_LEFT,
-            KeyEvent.KEYCODE_DPAD_RIGHT,
-    };
+    private TermuxAppSharedProperties mProperties;
 
-    AdditionalKeyboardView kbd;
+    ExtraKeysView kbd;
     FrameLayout frm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LorieService.setMainActivity(this);
+    	mProperties = new TermuxAppSharedProperties(this);
+
+    	LorieService.setMainActivity(this);
         LorieService.start(LorieService.ACTION_START_FROM_ACTIVITY);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN|
@@ -76,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         SurfaceView lorieView = findViewById(R.id.lorieView);
 
         instance.setListeners(lorieView);
-        kbd.reload(keys, lorieView, LorieService.getOnKeyListener());
+	kbd.reload(mProperties.getExtraKeysInfo());
     }
 
     @Override
